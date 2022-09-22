@@ -13,4 +13,11 @@ def save_book(response):
     with open(f'books/{book_id}.txt', 'wt', encoding='utf-8') as file:
         file.write(response.text.replace('\xa0', ''))
 
-# print(response.text)
+
+def check_for_redirect(response):
+    if response.history:
+        raise requests.HTTPError
+
+
+
+
