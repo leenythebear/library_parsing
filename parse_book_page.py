@@ -16,3 +16,12 @@ def get_book_image_url(soup):
     image_url = urljoin(common_url, url)
     return image_url
 
+
+def get_book_comments(soup):
+    comments_tags = soup.find_all('div', class_='texts')
+    comments = []
+    for comment in comments_tags:
+        comments.append(comment.find('span').text)
+    return comments
+
+
