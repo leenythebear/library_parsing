@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -8,6 +10,11 @@ def get_book_title_author(soup):
     return book_name
 
 
+def get_book_image_url(soup):
+    url = soup.find('div', class_='bookimage').find('img')['src']
+    common_url = 'https://tululu.org/'
+    image_url = urljoin(common_url, url)
+    return image_url
 
 if __name__ == "__main__":
     url = 'https://tululu.org/b32168/'
