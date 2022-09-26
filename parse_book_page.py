@@ -16,9 +16,3 @@ def get_book_image_url(soup):
     image_url = urljoin(common_url, url)
     return image_url
 
-if __name__ == "__main__":
-    url = 'https://tululu.org/b32168/'
-    response = requests.get(url)
-    response.raise_for_status()
-    soup = BeautifulSoup(response.text, 'lxml')
-    print(get_book_title_author(soup))

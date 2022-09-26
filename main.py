@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 from pathvalidate import sanitize_filename
-from parse_book_page import get_book_title_author
+from parse_book_page import get_book_title_author, get_book_image_url
 
 
 def check_for_redirect(response):
@@ -33,6 +33,7 @@ if __name__ == "__main__":
             check_for_redirect(response)
             soup = BeautifulSoup(response.text, 'lxml')
             filename = get_book_title_author(soup)
+            print(get_book_image_url(soup))
             download_txt(id_book, filename)
 
         except requests.HTTPError:
