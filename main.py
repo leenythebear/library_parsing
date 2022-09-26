@@ -1,3 +1,5 @@
+from urllib.parse import urlsplit
+
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -22,6 +24,16 @@ def download_txt(book_id, filename, folder='books/'):
     file_path = os.path.join(folder, correct_filename)
     with open(file_path, 'wt', encoding='utf-8') as file:
         file.write(response.text.replace('\xa0', ''))
+
+
+def download_image(image_url, folder='images/'):
+    filename = urlsplit(image_url).path.split('/')[-1]
+    os.makedirs(folder, exist_ok=True)
+    file_path = os.path.join(folder, filename)
+    response = requests.get(image_url)
+    response.raise_for_status()
+    with open(file_path, 'wb', ) as file:
+        file.write(response.content)
 
 
 if __name__ == "__main__":
