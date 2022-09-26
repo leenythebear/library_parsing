@@ -38,7 +38,7 @@ def download_image(image_url, folder='images/'):
 
 if __name__ == "__main__":
     for id_book in range(1, 11):
-        os.makedirs('books/', exist_ok=True)
+
         url = f'https://tululu.org/b{id_book}/'
         try:
             response = requests.get(url)
