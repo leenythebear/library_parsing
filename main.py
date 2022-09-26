@@ -35,7 +35,7 @@ if __name__ == "__main__":
             filename = get_book_title_author(soup)
             download_txt(id_book, filename)
 
-    except requests.HTTPError:
-        print("Запрашиваемвя книга не найдена")
+        except requests.HTTPError:
+            print("Запрашиваемая книга не найдена")
 
 
