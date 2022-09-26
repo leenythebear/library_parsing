@@ -45,7 +45,6 @@ if __name__ == "__main__":
             check_for_redirect(response)
             soup = BeautifulSoup(response.text, 'lxml')
             filename = get_book_title_author(soup)
-            print(get_book_image_url(soup))
             download_txt(id_book, filename)
 
         except requests.HTTPError:
