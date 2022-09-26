@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
 import os
 from pathvalidate import sanitize_filename
 from parse_book_page import get_book_title_author
@@ -11,8 +10,10 @@ def check_for_redirect(response):
         raise requests.HTTPError
 
 
-def download_txt(url, filename, folder='books/'):
-    response = requests.get(url)
+def download_txt(book_id, filename, folder='books/'):
+    url = 'https://tululu.org/txt.php'
+    params = {'id': book_id}
+    response = requests.get(url, params)
     response.raise_for_status()
     check_for_redirect(response)
 
@@ -24,18 +25,15 @@ def download_txt(url, filename, folder='books/'):
 
 
 if __name__ == "__main__":
-    # load_dotenv()
-    # url = os.getenv('URL')
-    url = 'https://tululu.org/b32168/'
-
-    # response = download_txt(url, book_id)
-    os.makedirs('books/', exist_ok=True)
-    try:
-        response = requests.get(url)
-        check_for_redirect(response)
-        soup = BeautifulSoup(response.text, 'lxml')
-        filename = get_book_title_author(soup)
-        download_txt(url, filename)
+    for id_book in range(1, 11):
+        os.makedirs('books/', exist_ok=True)
+        url = f'https://tululu.org/b{id_book}/'
+        try:
+            response = requests.get(url)
+            check_for_redirect(response)
+            soup = BeautifulSoup(response.text, 'lxml')
+            filename = get_book_title_author(soup)
+            download_txt(id_book, filename)
 
     except requests.HTTPError:
         print("Запрашиваемвя книга не найдена")
