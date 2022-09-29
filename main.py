@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 from pathvalidate import sanitize_filename
-from parse_book_page import get_book_title_author, get_book_image_url, get_book_comments
+from parse_book_page import get_book_title_author, get_book_image_url, get_book_comments, get_book_genre
 
 
 def check_for_redirect(response):
@@ -49,7 +49,7 @@ if __name__ == "__main__":
             image_url = get_book_image_url(soup)
             download_image(image_url)
             print(get_book_comments(soup))
-
+            print(get_book_genre(soup))
         except requests.HTTPError:
             print("Запрашиваемая книга не найдена")
 

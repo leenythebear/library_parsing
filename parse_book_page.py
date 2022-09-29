@@ -25,3 +25,13 @@ def get_book_comments(soup):
     return comments
 
 
+def get_book_genre(soup):
+    genre_tags = soup.find('span', class_='d_book').find_all('a')
+    genres = []
+    for genre in genre_tags:
+        genres.append(genre.text)
+    return genres
+
+
+
+
