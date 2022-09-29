@@ -33,5 +33,20 @@ def get_book_genre(soup):
     return genres
 
 
+def parse_book_page(response, book_id):
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, 'lxml')
+    title, author = get_book_title_author(soup)
+    image_url = get_book_image_url(soup)
+    genres = get_book_genre(soup)
+    comments = get_book_comments(soup)
+    serialize_book = {
+        'title': title,
+        'author': author,
+        'image_url': image_url,
+        'genres': genres,
+        'comments': comments,
+    }
+    return serialize_book
 
 
