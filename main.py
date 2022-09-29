@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 from pathvalidate import sanitize_filename
-from parse_book_page import get_book_title_author, get_book_image_url, get_book_comments, get_book_genre, parse_book_page
+from parse_book_page import parse_book_page
 
 
 def check_for_redirect(response):
