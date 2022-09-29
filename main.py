@@ -37,19 +37,24 @@ def download_image(image_url, folder='images/'):
 
 
 if __name__ == "__main__":
-    for id_book in range(1, 11):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--start_id', help='Начальный id книги для парсинга', default=1, type=int)
+    parser.add_argument('-e', '--end_id', help='Конечный id книги для парсинга', default=11, type=int)
+    args = parser.parse_args()
+    start_id = args.start_id
+    end_id = args.end_id
+    for id_book in range(start_id, end_id):
 
         url = f'https://tululu.org/b{id_book}/'
         try:
             response = requests.get(url)
             check_for_redirect(response)
-            soup = BeautifulSoup(response.text, 'lxml')
-            filename = get_book_title_author(soup)
-            download_txt(id_book, filename)
-            image_url = get_book_image_url(soup)
-            download_image(image_url)
-            print(get_book_comments(soup))
-            print(get_book_genre(soup))
+            book_information = parse_book_page(response, id_book)
+            print(book_information['title'])
+            print(book_information['genres'])
+            download_txt(id_book, book_information['title'])
+            download_image(book_information['image_url'])
+
         except requests.HTTPError:
             print("Запрашиваемая книга не найдена")
 
