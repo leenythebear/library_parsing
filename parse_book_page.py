@@ -40,13 +40,13 @@ def parse_book_page(response, book_id):
     image_url = get_book_image_url(soup)
     genres = get_book_genre(soup)
     comments = get_book_comments(soup)
-    serialize_book = {
+    book_information = {
         'title': title,
         'author': author,
         'image_url': image_url,
         'genres': genres,
         'comments': comments,
     }
-    return serialize_book
+    return book_information
 
 
