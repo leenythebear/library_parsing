@@ -5,9 +5,9 @@ from bs4 import BeautifulSoup
 
 
 def get_book_title_author(soup):
-    title_and_author = soup.find('title').text.split(', ')[0]
-    book_name = title_and_author.split('-')[0].strip()
-    return book_name
+    title_and_author = soup.find('table', class_='tabs').find('h1').text
+    title, author = title_and_author.split('::')
+    return title.strip(), author.strip()
 
 
 def get_book_image_url(soup):
