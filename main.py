@@ -2,7 +2,6 @@ import argparse
 from urllib.parse import urlsplit
 
 import requests
-from bs4 import BeautifulSoup
 import os
 from pathvalidate import sanitize_filename
 from parse_book_page import parse_book_page
