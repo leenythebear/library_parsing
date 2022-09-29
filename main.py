@@ -1,3 +1,4 @@
+import argparse
 from urllib.parse import urlsplit
 
 import requests
