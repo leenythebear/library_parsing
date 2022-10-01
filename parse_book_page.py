@@ -33,7 +33,6 @@ def get_book_genre(soup):
 
 
 def parse_book_page(response, book_id):
-    response.raise_for_status()
     soup = BeautifulSoup(response.text, "lxml")
     title, author = get_book_title_author(soup)
     image_url = get_book_image_url(soup)

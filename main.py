@@ -64,6 +64,7 @@ if __name__ == "__main__":
         try:
             response = requests.get(url)
             check_for_redirect(response)
+            response.raise_for_status()
             book = parse_book_page(response, id_book)
             print(book["title"])
             print(book["genres"])
