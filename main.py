@@ -64,11 +64,11 @@ if __name__ == "__main__":
         try:
             response = requests.get(url)
             check_for_redirect(response)
-            book_information = parse_book_page(response, id_book)
-            print(book_information["title"])
-            print(book_information["genres"])
-            download_txt(id_book, book_information["title"])
-            download_image(book_information["image_url"])
+            book = parse_book_page(response, id_book)
+            print(book["title"])
+            print(book["genres"])
+            download_txt(id_book, book["title"])
+            download_image(book["image_url"])
 
         except requests.HTTPError:
             print("Запрашиваемая книга не найдена")

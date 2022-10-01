@@ -39,11 +39,11 @@ def parse_book_page(response, book_id):
     image_url = get_book_image_url(soup)
     genres = get_book_genre(soup)
     comments = get_book_comments(soup)
-    book_information = {
+    book = {
         "title": title,
         "author": author,
         "image_url": image_url,
         "genres": genres,
         "comments": comments,
     }
-    return book_information
+    return book
