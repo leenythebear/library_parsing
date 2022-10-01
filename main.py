@@ -40,7 +40,7 @@ def download_image(image_url, folder="images/"):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Парсер книг с сайта tululu.org')
     parser.add_argument(
         "-s",
         "--start_id",
