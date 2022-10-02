@@ -18,17 +18,13 @@ def get_book_image_url(soup):
 
 def get_book_comments(soup):
     comments_tags = soup.find_all("div", class_="texts")
-    comments = []
-    for comment in comments_tags:
-        comments.append(comment.find("span").text)
+    comments = [comment.find("span").text for comment in comments_tags]
     return comments
 
 
 def get_book_genres(soup):
     genre_tags = soup.find("span", class_="d_book").find_all("a")
-    genres = []
-    for genre in genre_tags:
-        genres.append(genre.text)
+    genres = [genre.text for genre in genre_tags]
     return genres
 
 
