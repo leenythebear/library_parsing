@@ -24,7 +24,7 @@ def get_book_comments(soup):
     return comments
 
 
-def get_book_genre(soup):
+def get_book_genres(soup):
     genre_tags = soup.find("span", class_="d_book").find_all("a")
     genres = []
     for genre in genre_tags:
@@ -36,7 +36,7 @@ def parse_book_page(response):
     soup = BeautifulSoup(response.text, "lxml")
     title, author = get_book_title_author(soup)
     image_url = get_book_image_url(soup)
-    genres = get_book_genre(soup)
+    genres = get_book_genres(soup)
     comments = get_book_comments(soup)
     book = {
         "title": title,
