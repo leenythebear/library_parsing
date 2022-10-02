@@ -1,5 +1,5 @@
 import argparse
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urljoin
 
 import requests
 import os
@@ -69,7 +69,8 @@ if __name__ == "__main__":
             print(book["title"])
             print(book["genres"])
             download_txt(id_book, book["title"])
-            download_image(book["image_url"])
+            image_url = urljoin(url, book["image_url"])
+            download_image(image_url)
 
         except requests.HTTPError:
             print("Запрашиваемая книга не найдена")
