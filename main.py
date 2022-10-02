@@ -1,10 +1,12 @@
 import argparse
+import time
 from urllib.parse import urlsplit, urljoin
 
 import requests
 import os
 from pathvalidate import sanitize_filename
 from parse_book_page import parse_book_page
+from requests.exceptions import HTTPError, ConnectionError
 
 
 def check_for_redirect(response):
@@ -65,6 +67,7 @@ if __name__ == "__main__":
             response = requests.get(url)
             check_for_redirect(response)
             response.raise_for_status()
+
             book = parse_book_page(response)
             print(book["title"])
             print(book["genres"])
@@ -72,5 +75,16 @@ if __name__ == "__main__":
             image_url = urljoin(url, book["image_url"])
             download_image(image_url)
 
-        except requests.HTTPError:
+        except HTTPError:
             print("Запрашиваемая книга не найдена")
+            continue
+
+        except ConnectionError:
+            print('Что-то не так с интернет-соединением. Следующая попытка соединения через 1 минуту')
+            time.sleep(60)
+            continue
+
+
+
+
+
