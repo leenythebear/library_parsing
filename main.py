@@ -42,7 +42,9 @@ def download_image(image_url, folder="images/"):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Парсер книг с сайта tululu.org')
+    parser = argparse.ArgumentParser(
+        description="Парсер книг с сайта tululu.org"
+    )
     parser.add_argument(
         "-s",
         "--start_id",
@@ -80,11 +82,8 @@ if __name__ == "__main__":
             continue
 
         except ConnectionError:
-            print('Что-то не так с интернет-соединением. Следующая попытка соединения через 1 минуту')
+            print(
+                "Что-то не так с интернет-соединением. Следующая попытка соединения через 1 минуту"
+            )
             time.sleep(60)
             continue
-
-
-
-
-
