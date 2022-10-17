@@ -14,10 +14,10 @@ def check_for_redirect(response):
         raise requests.HTTPError
 
 
-def download_txt(book_id, filename, folder="books/"):
-    url = "https://tululu.org/txt.php"
-    params = {"id": book_id}
-    response = requests.get(url, params)
+def download_txt(book_url, filename, folder="books/"):
+    # url = "https://tululu.org/txt.php"
+    # params = {"id": book_id}
+    response = requests.get(book_url)
     response.raise_for_status()
     check_for_redirect(response)
 
