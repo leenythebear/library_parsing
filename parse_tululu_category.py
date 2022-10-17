@@ -32,11 +32,17 @@ if __name__ == "__main__":
                 response.raise_for_status()
 
                 book = parse_book_page(response)
+
+                book_json = json.dumps(book, ensure_ascii=False)
+                with open("books.json", "a") as my_file:
+                    my_file.write(book_json)
+
                 print(book["title"])
                 print(book["genres"])
                 download_txt(url, book["title"])
                 image_url = urljoin(url, book["image_url"])
                 download_image(image_url)
+
             except HTTPError:
                 print("Запрашиваемая книга не найдена")
                 continue
