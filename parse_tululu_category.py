@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 from requests import HTTPError, ConnectionError
 
-from downloads import download_txt, download_image
+from downloads import download_txt, download_image, download_json
 from redirect import check_for_redirect
 from parse_book_page import parse_book_page
 
@@ -67,17 +67,16 @@ if __name__ == "__main__":
         "-j",
         "--json_path",
         help="Указать свой путь к файлу json с результатами парсинга",
+        default='',
 
     )
     args = parser.parse_args()
     start_page = args.start_page
     end_page = args.end_page
+    books = []
     for page in range(start_page, end_page):
         book_url = get_book_url(page)
-        if args.json_path:
-            json_path = args.json_path
-        else:
-            json_path = ''
+
         for url in book_url:
             try:
                 response = requests.get(url)
@@ -85,12 +84,7 @@ if __name__ == "__main__":
                 response.raise_for_status()
 
                 book = parse_book_page(response)
-
-                book_json = json.dumps(book, ensure_ascii=False,
-                                       indent=4)
-                json_filepath = os.path.join(json_path, 'books.json')
-                with open(json_filepath, "a") as my_file:
-                    my_file.write(book_json)
+                books.append(book)
 
                 if not args.skip_txt:
                     download_txt(url, book["title"], dest_folder=args.dest_folder)
@@ -107,5 +101,8 @@ if __name__ == "__main__":
                     "Что-то не так с интернет-соединением. Следующая попытка соединения через 1 минуту")
                 time.sleep(60)
                 continue
+
+    download_json(books, args.dest_folder, args.json_path)
+
 
 

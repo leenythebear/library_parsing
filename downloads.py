@@ -1,3 +1,4 @@
+import json
 from urllib.parse import urlsplit
 
 import requests
@@ -34,3 +35,12 @@ def download_image(image_url, dest_folder, folder="images/"):
         "wb",
     ) as file:
         file.write(response.content)
+
+
+def download_json(book, dest_folder, json_path, filename='books.json'):
+    book_json = json.dumps(book, ensure_ascii=False, indent=4)
+    path = os.path.join(dest_folder, json_path)
+    os.makedirs(path, exist_ok=True)
+    json_filepath = os.path.join(path, filename)
+    with open(json_filepath, "a") as my_file:
+        my_file.write(book_json)
