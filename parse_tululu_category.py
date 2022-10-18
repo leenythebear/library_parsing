@@ -92,14 +92,11 @@ if __name__ == "__main__":
                 with open(json_filepath, "a") as my_file:
                     my_file.write(book_json)
 
-                if args.dest_folder:
-                    folder = args.dest_folder
-
                 if not args.skip_txt:
-                    download_txt(url, book["title"], folder=folder)
+                    download_txt(url, book["title"], dest_folder=args.dest_folder)
                 if not args.skip_images:
                     image_url = urljoin(url, book["image_url"])
-                    download_image(image_url)
+                    download_image(image_url, dest_folder=args.dest_folder)
 
             except HTTPError:
                 print("Запрашиваемая книга не найдена")
