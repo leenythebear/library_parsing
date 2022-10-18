@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import time
 from urllib.parse import urljoin
 
@@ -42,11 +43,41 @@ if __name__ == "__main__":
         default=700,
         type=int,
     )
+    parser.add_argument(
+        "-d",
+        "--dest_folder",
+        help="Путь к каталогу с результатами парсинга: картинкам, книгам, JSON",
+        default="",
+    )
+    parser.add_argument(
+        "-i",
+        "--skip_images",
+        help="Не скачивать картинки",
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
+        "-t",
+        "--skip_txt",
+        help="Не скачивать книги",
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
+        "-j",
+        "--json_path",
+        help="Указать свой путь к файлу json с результатами парсинга",
+
+    )
     args = parser.parse_args()
     start_page = args.start_page
     end_page = args.end_page
     for page in range(start_page, end_page):
         book_url = get_book_url(page)
+        if args.json_path:
+            json_path = args.json_path
+        else:
+            json_path = ''
         for url in book_url:
             try:
                 response = requests.get(url)
@@ -57,14 +88,18 @@ if __name__ == "__main__":
 
                 book_json = json.dumps(book, ensure_ascii=False,
                                        indent=4)
-                with open("books.json", "a") as my_file:
+                json_filepath = os.path.join(json_path, 'books.json')
+                with open(json_filepath, "a") as my_file:
                     my_file.write(book_json)
 
-                print(book["title"])
-                print(book["genres"])
-                download_txt(url, book["title"])
-                image_url = urljoin(url, book["image_url"])
-                download_image(image_url)
+                if args.dest_folder:
+                    folder = args.dest_folder
+
+                if not args.skip_txt:
+                    download_txt(url, book["title"], folder=folder)
+                if not args.skip_images:
+                    image_url = urljoin(url, book["image_url"])
+                    download_image(image_url)
 
             except HTTPError:
                 print("Запрашиваемая книга не найдена")
