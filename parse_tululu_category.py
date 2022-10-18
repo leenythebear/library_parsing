@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
                 book = parse_book_page(response)
 
-                book_json = json.dumps(book, ensure_ascii=False)
+                book_json = json.dumps(book, ensure_ascii=False, indent=4)
                 with open("books.json", "a") as my_file:
                     my_file.write(book_json)
 
