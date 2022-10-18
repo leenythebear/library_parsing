@@ -8,7 +8,7 @@
 2. Для работы скрипта нужен Python версии не ниже 3.7
 3. Установите зависимости, указанные в файле requirements.txt командой:
 
-``pip install -r requirements.txt``
+   ```pip install -r requirements.txt```
 
 ### Как запустить
 
@@ -20,63 +20,61 @@ ___
 
 - С какой страницы будет начинаться скачивание и на какой заканчиваться, например:
 
-```python3 main.py -s 13 -e 17```
+  ```python3 main.py -s 13 -e 17```
 
-или 
+   или 
 
-```python3 main.py --start_page 13 --end_page 17```
+   ```python3 main.py --start_page 13 --end_page 17```
 
-где:
-* 13 - id книги, с которой начнется скачивание,
-* 17 - id книги, до которой скачаются книги (не включая 17-ую)
+   где:
+   * 13 - страница, с которой начнется скачивание,
+   * 17 - страница, до которой скачаются книги (не включая 17-ую)
 
 ___
 
 - Путь к каталогу с результатами парсинга: картинкам, книгам, JSON, например:
 
+  ```python3 main.py -d destination_folder```
 
-```python3 main.py -d destination_folder```
+  или
 
-или
+  ```python3 main.py --dest_folder destination_folder```
 
-```python3 main.py --dest_folder destination_folder```
-
-
-где:
-* destination_folder - папка для сохранения файлов (необязательный аргумент)
+  где:
+  * destination_folder - папка для сохранения файлов (необязательный аргумент)
 
 ___
 
 - Не скачивать картинки(по умолчанию, при не указанном аргументе картинки скачиваются):
 
-```python3 main.py -i```
+  ```python3 main.py -i```
 
-или
+  или
 
-```python3 main.py --skip_images```
+  ```python3 main.py --skip_images```
 
 ___
 
 - Не скачивать книги(по умолчанию, при не указанном аргументе книги скачиваются:
 
-```python3 main.py -t```
+  ```python3 main.py -t```
 
-или
+  или
 
-```python3 main.py --skip_txt```
+  ```python3 main.py --skip_txt```
 
 ___
 
 - Указать свой путь к файлу json с результатами парсинга:
 
-```python3 main.py -j```
+  ```python3 main.py -j```
 
-или
+  или
 
-```python3 main.py --json_path path```
+  ```python3 main.py --json_path path```
 
-где:
-* path - путь к файлу json c результатами парсинга
+  где:
+  * path - путь к файлу json c результатами парсинга
 
 ___
 
