@@ -16,11 +16,9 @@ def check_for_redirect(response):
 
 def download_txt(book_url, filename, folder="books/"):
     book_id = urlsplit(book_url).path.strip("/").lstrip('b')
-    print(book_id)
     url = "https://tululu.org/txt.php"
     params = {"id": book_id}
     response = requests.get(url, params=params)
-    # print(222, response.text)
     response.raise_for_status()
     check_for_redirect(response)
 

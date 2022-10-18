@@ -12,7 +12,6 @@ from parse_book_page import parse_book_page
 
 def get_book_url(page):
     url = f'https://tululu.org/l55/{page}'
-    print(url)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "lxml")
     selector = 'table.d_book'
@@ -26,7 +25,6 @@ def get_book_url(page):
 if __name__ == "__main__":
     for page in range(1, 2):
         book_url = get_book_url(page)
-        print(book_url)
         for url in book_url:
             try:
                 response = requests.get(url)
