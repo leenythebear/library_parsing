@@ -2,8 +2,8 @@ from bs4 import BeautifulSoup
 
 
 def get_book_title_author(soup):
-    title_and_author = soup.find("table", class_="tabs").find("h1").text
-    title, author = title_and_author.split("::")
+    title_and_author = soup.select_one('h1')
+    title, author = title_and_author.text.split("::")
     return title.strip(), author.strip()
 
 
@@ -14,7 +14,7 @@ def get_book_comments(soup):
 
 
 def get_book_genres(soup):
-    genre_tags = soup.find("span", class_="d_book").find_all("a")
+    genre_tags = soup.select_one('span.d_book').select('a')
     genres = [genre.text for genre in genre_tags]
     return genres
 
@@ -22,7 +22,7 @@ def get_book_genres(soup):
 def parse_book_page(response):
     soup = BeautifulSoup(response.text, "lxml")
     title, author = get_book_title_author(soup)
-    image_url = soup.find("div", class_="bookimage").find("img")["src"]
+    image_url = soup.select_one('.bookimage img')['src']
     genres = get_book_genres(soup)
     comments = get_book_comments(soup)
     book = {

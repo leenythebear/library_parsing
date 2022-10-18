@@ -14,9 +14,10 @@ def get_book_url(page):
     print(url)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "lxml")
-    book_tags = soup.find_all('table', class_='d_book')
+    selector = 'table.d_book'
+    book_tags = soup.select(selector)
     for book_tag in book_tags:
-        book_link = book_tag.find('a')['href']
+        book_link = book_tag.select_one('a')['href']
         book_url = urljoin(url, book_link)
         yield book_url
 
