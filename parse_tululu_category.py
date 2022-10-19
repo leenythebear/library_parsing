@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 from requests import HTTPError, ConnectionError
 
-from downloads import download_txt, download_image, download_json
+from downloads import download_txt, download_image, save_json
 from redirect import check_for_redirect
 from parse_book_page import parse_book_page
 
@@ -106,7 +106,7 @@ if __name__ == "__main__":
                 time.sleep(60)
                 continue
 
-    download_json(books, args.dest_folder, args.json_path)
+    save_json(books, args.dest_folder, args.json_path)
 
 
 

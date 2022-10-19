@@ -37,7 +37,7 @@ def download_image(image_url, dest_folder, folder="images/"):
         file.write(response.content)
 
 
-def download_json(book, dest_folder, json_path, filename='books.json'):
+def save_json(book, dest_folder, json_path, filename='books.json'):
     book_json = json.dumps(book, ensure_ascii=False, indent=4)
     path = os.path.join(dest_folder, json_path)
     os.makedirs(path, exist_ok=True)
