@@ -25,7 +25,7 @@ def get_book_url(page):
         yield book_url
 
 
-if __name__ == "__main__":
+def parse_arguments():
     parser = argparse.ArgumentParser(
         description="Парсер книг с сайта tululu.org"
     )
@@ -71,10 +71,14 @@ if __name__ == "__main__":
 
     )
     args = parser.parse_args()
-    start_page = args.start_page
-    end_page = args.end_page
+    return args
+
+
+if __name__ == "__main__":
+    args = parse_arguments()
+
     books = []
-    for page in range(start_page, end_page):
+    for page in range(args.start_page, args.end_page):
         book_url = get_book_url(page)
 
         for url in book_url:
