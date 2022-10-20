@@ -17,7 +17,8 @@ def download_txt(book_url, filename, dest_folder, folder="books/"):
 
     correct_filename = f"{sanitize_filename(filename)}.txt"
     txt_path = os.path.join(dest_folder, folder)
-    os.makedirs(txt_path, exist_ok=True)
+    if txt_path:
+        os.makedirs(txt_path, exist_ok=True)
     file_path = os.path.join(txt_path, correct_filename)
     with open(file_path, "wt", encoding="utf-8") as file:
         file.write(response.text.replace("\xa0", ""))
@@ -26,7 +27,8 @@ def download_txt(book_url, filename, dest_folder, folder="books/"):
 def download_image(image_url, dest_folder, folder="images/"):
     filename = urlsplit(image_url).path.split("/")[-1]
     image_path = os.path.join(dest_folder, folder)
-    os.makedirs(image_path, exist_ok=True)
+    if image_path:
+        os.makedirs(image_path, exist_ok=True)
     file_path = os.path.join(image_path, filename)
     response = requests.get(image_url)
     response.raise_for_status()
