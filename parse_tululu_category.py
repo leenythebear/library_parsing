@@ -81,7 +81,17 @@ if __name__ == "__main__":
 
     books = []
     for page in range(args.start_page, args.end_page):
-        book_url = get_book_url(page)
+        try:
+            book_url = get_book_url(page)
+        except HTTPError:
+            print("Запрашиваемая страница не найдена")
+            continue
+
+        except ConnectionError:
+            print(
+                "Что-то не так с интернет-соединением. Следующая попытка соединения через 1 минуту")
+            time.sleep(60)
+            continue
 
         for url in book_url:
             try:
@@ -107,7 +117,6 @@ if __name__ == "__main__":
                     "Что-то не так с интернет-соединением. Следующая попытка соединения через 1 минуту")
                 time.sleep(60)
                 continue
-
     save_json(books, args.dest_folder, args.json_path)
 
 
