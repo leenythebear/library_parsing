@@ -16,6 +16,8 @@ from parse_book_page import parse_book_page
 def get_book_url(page):
     url = f'https://tululu.org/l55/{page}'
     response = requests.get(url)
+    check_for_redirect(response)
+    response.raise_for_status()
     soup = BeautifulSoup(response.text, "lxml")
     selector = 'table.d_book'
     book_tags = soup.select(selector)
