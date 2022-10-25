@@ -20,5 +20,5 @@ def reload():
 if __name__ == "__main__":
     reload()
     server = Server()
-    server.watch('template.html', on_reload)
+    server.watch('template.html', reload)
     server.serve(root='.')
