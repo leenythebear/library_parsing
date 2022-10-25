@@ -8,7 +8,7 @@ env = Environment(
     loader=FileSystemLoader('.'),
     autoescape=select_autoescape(['html', 'xml'])
 )
-template = env.get_template('index.html')
+template = env.get_template('template.html')
 with open("books.json", "r") as library:
     books_json = library.read()
 books = json.loads(books_json)
@@ -18,8 +18,8 @@ rendered_page = template.render(books=books)
 print(rendered_page)
 
 
-# with open('index.html', 'w', encoding="utf8") as file:
-#     file.write(rendered_page)
+with open('index.html', 'w', encoding="utf8") as file:
+    file.write(rendered_page)
 
 server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
 server.serve_forever()
