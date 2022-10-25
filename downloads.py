@@ -22,6 +22,7 @@ def download_txt(book_url, filename, dest_folder, folder="books/"):
     file_path = os.path.join(txt_path, correct_filename)
     with open(file_path, "wt", encoding="utf-8") as file:
         file.write(response.text.replace("\xa0", ""))
+    return file_path
 
 
 def download_image(image_url, dest_folder, folder="images/"):
@@ -37,6 +38,7 @@ def download_image(image_url, dest_folder, folder="images/"):
         "wb",
     ) as file:
         file.write(response.content)
+    return file_path
 
 
 def save_json(book, dest_folder, json_path, filename='books.json'):

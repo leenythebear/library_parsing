@@ -103,10 +103,12 @@ if __name__ == "__main__":
                 books.append(book)
 
                 if not args.skip_txt:
-                    download_txt(url, book["title"], dest_folder=args.dest_folder)
+                    book_path = download_txt(url, book["title"], dest_folder=args.dest_folder)
+                    book['book_path'] = book_path
                 if not args.skip_images:
                     image_url = urljoin(url, book["image_url"])
-                    download_image(image_url, dest_folder=args.dest_folder)
+                    image_path = download_image(image_url, dest_folder=args.dest_folder)
+                    book['image_path'] = image_path
 
             except HTTPError:
                 print("Запрашиваемая книга не найдена")
