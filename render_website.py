@@ -1,5 +1,5 @@
 from livereload import Server
-
+from more_itertools import chunked
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import json
@@ -11,7 +11,9 @@ def reload():
     with open("books.json", "r") as library:
         books_json = library.read()
     books = json.loads(books_json)
-    rendered_page = template.render(books=books)
+    chunked_books = list(chunked(books, 2))
+    print(chunked_books)
+    rendered_page = template.render(chunked_books=chunked_books)
 
     with open('index.html', 'w', encoding="utf8") as file:
         file.write(rendered_page)
