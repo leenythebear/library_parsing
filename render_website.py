@@ -1,3 +1,5 @@
+import os
+
 from livereload import Server
 from more_itertools import chunked
 
@@ -11,12 +13,23 @@ def reload():
     with open("books.json", "r") as library:
         books_json = library.read()
     books = json.loads(books_json)
-    chunked_books = list(chunked(books, 2))
-    print(chunked_books)
-    rendered_page = template.render(chunked_books=chunked_books)
 
-    with open('index.html', 'w', encoding="utf8") as file:
-        file.write(rendered_page)
+    folder_path = 'pages/'
+    os.makedirs(folder_path, exist_ok=True)
+
+    books_for_page = list(chunked(books, 10))
+    page_count = len(books_for_page)
+
+    for page_number, separate_books in enumerate(books_for_page, 1):
+        chunked_books = list(chunked(separate_books, 2))
+        page_name = f'index{page_number}.html'
+        print(page_name)
+        page_path = os.path.join(folder_path, page_name)
+
+        rendered_page = template.render(chunked_books=chunked_books, page_count=page_count, page_number=page_number)
+
+        with open(page_path, 'w', encoding="utf8") as file:
+            file.write(rendered_page)
 
 
 if __name__ == "__main__":
