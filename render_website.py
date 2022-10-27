@@ -37,3 +37,4 @@ if __name__ == "__main__":
     server = Server()
     server.watch('template.html', reload)
     server.serve(root='.')
+    # , default_filename='pages/index1.html')
