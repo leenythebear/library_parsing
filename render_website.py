@@ -6,6 +6,9 @@ from more_itertools import chunked
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import json
 
+BOOKS_PER_PAGE = 10
+NUMBER_OF_COLUMNS = 2
+
 
 def reload():
     env = Environment(loader=FileSystemLoader('.'), autoescape=select_autoescape(['html', 'xml']))
@@ -17,11 +20,11 @@ def reload():
     folder_path = 'pages/'
     os.makedirs(folder_path, exist_ok=True)
 
-    books_for_page = list(chunked(books_json, 10))
+    books_for_page = list(chunked(books_json, BOOKS_PER_PAGE))
     page_count = len(books_for_page)
 
     for page_number, separate_books in enumerate(books_for_page, 1):
-        chunked_books = list(chunked(separate_books, 2))
+        chunked_books = list(chunked(separate_books, NUMBER_OF_COLUMNS))
         page_name = f'index{page_number}.html'
         page_path = os.path.join(folder_path, page_name)
 
