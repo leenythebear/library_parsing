@@ -23,7 +23,6 @@ def reload():
     for page_number, separate_books in enumerate(books_for_page, 1):
         chunked_books = list(chunked(separate_books, 2))
         page_name = f'index{page_number}.html'
-        print(page_name)
         page_path = os.path.join(folder_path, page_name)
 
         rendered_page = template.render(chunked_books=chunked_books, page_count=page_count, page_number=page_number)
@@ -37,4 +36,3 @@ if __name__ == "__main__":
     server = Server()
     server.watch('template.html', reload)
     server.serve(root='.')
-    # , default_filename='pages/index1.html')
