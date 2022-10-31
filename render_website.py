@@ -10,14 +10,14 @@ import json
 def reload():
     env = Environment(loader=FileSystemLoader('.'), autoescape=select_autoescape(['html', 'xml']))
     template = env.get_template('template.html')
-    with open("books.json", "r") as library:
-        books_json = library.read()
-    books = json.loads(books_json)
+    with open("books.json", "r") as books:
+        books_json = json.load(books)
+    # books = json.loads(books_json)
 
     folder_path = 'pages/'
     os.makedirs(folder_path, exist_ok=True)
 
-    books_for_page = list(chunked(books, 10))
+    books_for_page = list(chunked(books_json, 10))
     page_count = len(books_for_page)
 
     for page_number, separate_books in enumerate(books_for_page, 1):
