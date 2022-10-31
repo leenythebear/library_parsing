@@ -15,7 +15,6 @@ def reload():
     template = env.get_template('template.html')
     with open("books.json", "r") as books:
         books_json = json.load(books)
-    # books = json.loads(books_json)
 
     folder_path = 'pages/'
     os.makedirs(folder_path, exist_ok=True)
