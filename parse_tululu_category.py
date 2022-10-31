@@ -100,10 +100,11 @@ if __name__ == "__main__":
                 response.raise_for_status()
 
                 book = parse_book_page(response)
-                books.append(book)
 
                 if not args.skip_txt:
                     book_path = download_txt(url, book["title"], dest_folder=args.dest_folder)
+                    if not book_path:
+                        continue
                     book['book_path'] = book_path
                 if not args.skip_images:
                     image_url = urljoin(url, book["image_url"])
@@ -119,6 +120,7 @@ if __name__ == "__main__":
                     "Что-то не так с интернет-соединением. Следующая попытка соединения через 1 минуту")
                 time.sleep(60)
                 continue
+            books.append(book)
     save_json(books, args.dest_folder, args.json_path)
 
 
